@@ -1,0 +1,134 @@
+/* PAGE AREA: SERVER DATA */
+/* -------------------------------------------------------------------------- */
+
+
+#server-data {
+  display: block;
+}
+
+#player-list {
+  /* border: 3px dotted darkslategray; */
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.player-info,
+.entity-info {
+  border-radius: 1em;
+  /* border: 2px solid darkslateblue; */
+  display: flex;
+  gap: 1em;
+}
+
+
+/* PAGE AREA: PLAYER VIEW */
+/* -------------------------------------------------------------------------- */
+
+.player-label,
+.entity-label {
+  border-bottom: 2px solid #222222;
+  color: darkslategray;
+  margin: auto;
+}
+
+.player-data,
+.entity-data {
+  border-bottom: 2px solid #222222;
+  margin-left: 1em;
+}
+
+.player-view-canvas,
+.entity-view-canvas {
+  border-radius: 1em;
+  border: 2px solid darkslateblue;
+  display: flex;
+}
+
+.cardwrap {
+  /* border: 1px dotted darkslateblue; */
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+
+
+/* PAGE AREA: ENTITY VIEW */
+/* -------------------------------------------------------------------------- */
+
+
+#entity-view-area {
+  /* border: 1px dotted darkslategray; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+/* PAGE AREA: ENTITY DATA */
+/* -------------------------------------------------------------------------- */
+
+
+#entity-info {
+  /* border: 3px solid darkslateblue; */
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#entity-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.entity-card {
+  /* border: 3px solid darkslateblue; */
+  border-radius: 1em;
+  display: flex;
+}
+
+.entity-table th {
+  color: deepskyblue;
+  text-transform: uppercase;
+}
+
+.entity-table td {
+  border-bottom: 1px solid #222222;
+  text-align: center;
+}
+
+/* display data on tooltip hover */
+
+.tooltip {
+  display: none;
+  /* Initially hidden */
+  position: absolute;
+  background-color: #222;
+  color: darkcyan;
+  padding: .5em;
+  border-radius: .5em;
+  z-index: 1;
+}
+
+.entity-card:hover .tooltip {
+  display: block;
+}
+
+
+/* BASIC ELEMENTS */
+/* -------------------------------------------------------------------------- */
+
+
+canvas {
+  /* border: 3px dotted orange; */
+  display: flex;
+  padding: 1em;
+
+}
+
+table {
+  background: #111111;
+  border-radius: 1em;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 1em;
+}

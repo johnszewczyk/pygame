@@ -1,0 +1,11 @@
+.log-item {
+  background-color: #111111;
+  /* border-radius: 1em; */
+  display: flex;
+  margin: .2em;
+  padding: .2em;
+}
+
+.log-item:hover {
+  color: deepskyblue;
+}

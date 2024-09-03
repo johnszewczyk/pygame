@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+
+
+
+<head>
+  <title>🔪 CAMP ESCAPE</title>
+  <meta charset="UTF-8">
+  <meta property="og:title" content="CAMP 🔪 ESCAPE" />
+  <meta property="og:description" content="Instant Multiplayer Experience!" />
+  <meta property="og:image" content="ce.jpeg" />
+  <meta property="og:url" content="https://bashgame.online" />
+
+  <!-- external -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@latest/css/xterm.css" />
+  <script src="https://cdn.jsdelivr.net/npm/xterm@latest/lib/xterm.js"></script>
+
+  <!-- main style sheet -->
+  <link rel="stylesheet" href="css/index.css" />
+
+  <!-- prevent iOS double-tap zoom -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+
+</head>
+
+<body>
+
+  <div id="bordwrap">
+
+    <!-- TOP BANNER -->
+    <!-- <div id="banner">
+      <span id="campescape">
+        CAMP🔪ESCAPE
+      </span>
+    </div> -->
+
+    <div id="uptime">
+    </div>
+
+    <!-- <div id="terminal"></div> -->
+    <canvas id="gameCanvas" width="250" height="250"></canvas>
+
+    <div id="touch-controls">
+
+      <button data-key="w">↑</button>
+
+      <div class="sidewrap">
+        <button data-key="a">←</button>
+        <button data-key="d">→</button>
+      </div>
+
+      <button data-key="s">↓</button>
+
+    </div>
+
+  </div>
+
+  <!-- notification area for loaded javascript type -->
+  <div class="sidewrap">
+    <div class="readouts">ONLINE:</div>
+    <div class="readouts" id="death-count"></div>
+    <div class="readouts" id="users-online"></div>
+    <!-- <div class="client-type" id="client-type-d"></div>
+    <div class="client-type" id="client-type-m"></div> -->
+  </div>
+
+
+  <!-- primary JS for game functions -->
+  <script src="js/host.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/client_all.js"></script>
+
+  <!-- <script src="client_desktop.js"></script> -->
+  <!-- <script src="client_mobile.js"></script> -->
+
+</body>
+
+
+
+
+</html>

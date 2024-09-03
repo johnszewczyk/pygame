@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+
+
+
+<head>
+  <title>💻 CAMP ESCAPE</title>
+  <meta charset="UTF-8">
+  <meta property="og:title" content="ADMIN 🔪 ESCAPE" />
+  <meta property="og:description" content="Admin Interface" />
+  <meta property="og:image" content="ce.jpeg" />
+  <meta property="og:url" content="https://bashgame.online/admin" />
+
+  <!-- external -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@latest/css/xterm.css" />
+  <script src="https://cdn.jsdelivr.net/npm/xterm@latest/lib/xterm.js"></script>
+
+  <!-- main style sheet -->
+  <link rel="stylesheet" href="css/all.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+  <link rel="stylesheet" href="css/map.css" />
+
+</head>
+
+<body>
+  <div id="nav-bar">
+    <div class="nav-item"><a href="admin.html">admin</a></div>
+    <div class="nav-item"><a href="map.html">view</a></div>
+    <div class="nav-item"><a href="index.html">join</a></div>
+    <div class="nav-item"><a href="log.html">log</a></div>
+    <div class="nav-item" id="latency-display"></div>
+  </div>
+
+
+  <h2>Server Data</h2>
+  <div id="wrap" style="display: flex;gap: 1em;">
+    <div id="server-data">
+    </div>
+    <div id="game-data">
+    </div>
+  </div>
+
+
+  <h2>Control Panel</h2>
+  <div id="control-panel">
+    <button id="new-game-button">New Game</button>
+  </div>
+
+  <h2>Entity View</h2>
+  <div id="entity-view-area">
+    <div id="entity-view-list">
+    </div>
+  </div>
+
+
+  <h2>Player View</h2>
+  <div id="player-info-area">
+    <div id="player-list">
+    </div>
+  </div>
+
+  <h2>Entity Data</h2>
+  <div id="entity-info-area">
+    <div id="entity-list">
+    </div>
+  </div>
+
+
+  <!-- SCRIPTS -->
+  <script src="js/host.js"></script>
+  <script src="js/admin.js"></script>
+
+</body>
+
+</html>

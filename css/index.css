@@ -1,0 +1,151 @@
+html {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1em;
+  touch-action: none;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  outline: 1px solid #333333;
+  border: 2em solid #131313;
+  border-radius: 3em;
+  touch-action: none;
+}
+
+#banner {
+  background: #333333;
+  border: 3px solid red;
+  border-radius: 5em;
+  color: red;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+  opacity: .5;
+}
+
+#campescape {
+  display: flex;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: bold;
+  margin: auto;
+}
+
+#gameCanvas {
+  background-color: #111111;
+  border-radius: 5%;
+  /* border: 1px solid lime; */
+  margin-bottom: .5em;
+}
+
+
+
+/* div to fix background from border radi */
+#bordwrap {
+  background-color: #131313;
+  display: flex;
+  flex-direction: column;
+}
+
+#terminal {
+  border: 2em solid darkslateblue;
+  border-radius: 1em;
+  margin: auto;
+  margin-bottom: .5em;
+  outline: 1px solid lime;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  scrollbar-width: none;
+  touch-action: none;
+  width: 13.5em;
+  height: 13em;
+}
+
+#terminal::-webkit-scrollbar {
+  display: none;
+}
+
+.sidewrap {
+  display: flex;
+  background-color: #131313;
+  flex-direction: row;
+}
+
+#touch-controls {
+  background-color: #131313;
+  border-radius: 1em;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+#touch-controls button {
+  background-color: #121212;
+  border: .5em solid #333333;
+  color: limegreen;
+  display: flex;
+  flex-grow: 1;
+  margin-bottom: .5em;
+  padding: 2em;
+  font-size: 1em;
+  touch-action: manipdulation;
+  /* Prevent double-tap zoom */
+}
+
+#touch-controls button.active {
+  /* Styles for the active state (e.g., change background color, add a glow) */
+  background-color: #333333;
+  border-color: #111111;
+  box-shadow: 0 0 .2em limegreen;
+  transform: translateY(.25em);
+  transition-duration: .5;
+}
+
+#touch-controls button:hover {
+  background-color: #222222;
+}
+
+#uptime {
+  color: darkcyan;
+  display: flex;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  /* text-shadow: 1px 1px deepskyblue; */
+  font-size: .5em;
+  font-weight: bold;
+  margin: auto;
+  margin-bottom: .5em;
+  padding: .5em;
+}
+
+
+#uptime:hover {
+  color: lime;
+}
+
+#users-online {
+  color: red;
+  margin-left: .2em;
+}
+
+.readouts {
+  color: darkcyan;
+  display: inline-flex;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  /* text-shadow: 1px 1px deepskyblue; */
+  font-size: .5em;
+  font-weight: bold;
+
+}
+
+button {
+  border-radius: 1em;
+  justify-content: center;
+  font-weight: bold;
+}
