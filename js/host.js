@@ -8,11 +8,8 @@ const hostData = (function () {
   let wsAdmin = null;  // WebSocket for admins
 
   // LOCAL
-  const adminWsUrl = 'ws://10.0.1.12:5003';
-  const clientWsUrl = 'ws://10.0.1.12:5002';
-
-  // const adminWsUrl = 'ws://10.0.1.2:5003';
-  // const clientWsUrl = 'ws://10.0.1.2:5002';
+  const adminWsUrl = 'ws://localhost:5003';
+  const clientWsUrl = 'ws://localhost:5002';
 
   // REMOTE
   // const adminWsUrl = 'wss://bashgame.online:5003';  

@@ -1,0 +1,92 @@
+table {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4em;
+  width: 100%;
+
+}
+
+tr {
+  border-bottom: 1px dotted #333;
+  display: flex;
+  width: 100%;
+}
+
+tr:hover {
+  color: deepskyblue;
+  border-bottom: 1px solid deepskyblue;
+}
+
+td {
+  box-sizing: border-box;
+  color: inherit;
+  flex: 1;
+  font-size: .8em;
+}
+
+th {
+  flex: 1;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  /* Cells expand to fill available space equally */
+  box-sizing: border-box;
+  /* Include padding and border in the cell's total width */
+  color: deepskyblue;
+}
+
+.header-cell {
+  border-bottom: 4px solid darkslateblue;
+  color: darkcyan;
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 1em;
+  padding-bottom: .5em;
+}
+
+#tile-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 1em;
+  /* flex: 0 0 auto; */
+  /* Prevent labels from shrinking or growing */
+}
+
+
+
+#tile-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  /* Add gap for spacing between filters */
+}
+
+.tile-filter {
+  flex: 1 0 30%;
+  /* Each filter takes up 1/3 of the width */
+  background-color: black;
+  border-radius: .2em;
+  cursor: pointer;
+  outline: 2px solid darkcyan;
+  padding: 1em;
+  text-align: center;
+  transition: background-color 0.3s;
+  /* Smooth transition for visual feedback */
+}
+
+.tile-filter.active {
+  background-color: #007bff;
+  /* Blue background when active */
+  color: white;
+}
+
+.tile-filter:hover {
+  color: deepskyblue;
+}

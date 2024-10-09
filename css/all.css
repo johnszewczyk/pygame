@@ -1,7 +1,6 @@
 html {
   background-color: black;
   color: darkcyan;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: bold;
   padding: 1em;
 }
@@ -10,6 +9,8 @@ body {
   background-color: black;
   display: flex;
   flex-direction: column;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+
   margin: auto;
   padding: 1em;
 
@@ -24,7 +25,8 @@ a {
 }
 
 a:hover {
-  color: darkcyan;
+  /* color: darkcyan; */
+  color: deepskyblue;
   text-decoration-color: darkslateblue;
   transition-duration: .5;
 
@@ -46,12 +48,17 @@ h2 {
   border-bottom: 1px solid red;
   display: flex;
   flex-direction: row;
+  /* font-weight: bold; */
   gap: 1em;
   padding-bottom: .5em;
 }
 
 .nav-item {
+  /* color: darkcyan; */
+  color: deepskyblue;
   display: flex;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
 }
 
 

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+
+
+
+<head>
+  <title>💻 CAMP ESCAPE</title>
+  <meta charset="UTF-8">
+  <meta property="og:title" content="ADMIN 🔪 ESCAPE" />
+  <meta property="og:description" content="Admin Interface" />
+  <meta property="og:image" content="ce.jpeg" />
+  <meta property="og:url" content="https://bashgame.online/admin" />
+
+  <!-- external -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@latest/css/xterm.css" />
+  <script src="https://cdn.jsdelivr.net/npm/xterm@latest/lib/xterm.js"></script>
+
+  <!-- main style sheet -->
+  <link rel="stylesheet" href="css/all.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+  <link rel="stylesheet" href="css/map.css" />
+
+</head>
+
+<body>
+
+  <div id="nav-bar">
+  </div>
+
+
+  <h2>Server Data</h2>
+  <h3>Host Configuration</h3>
+  <div id="server-data">
+  </div>
+
+  <h3>Game Configuration</h3>
+
+  <div id="game-data">
+  </div>
+
+  <h3>Instance Data</h3>
+  <div id="inst-data">
+  </div>
+
+
+  <h2>Control Panel</h2>
+  <div id="control-panel">
+    <button id="new-game-button">New Game</button>
+    <button id="old-game-button">Old Game</button>
+  </div>
+
+  <h2>Entity View</h2>
+  <div id="unit-view-area">
+    <div id="unit-view-list">
+    </div>
+  </div>
+
+
+  <h2>Player View</h2>
+  <div id="user-info-area">
+    <div id="user-list">
+    </div>
+  </div>
+
+
+  <!-- SCRIPTS -->
+  <script src="js/navbar.js"></script>
+  <script src="js/host.js"></script>
+  <script src="js/admin.js"></script>
+
+</body>
+
+</html>

@@ -82,9 +82,9 @@ function render_game(gameBoard) {
 }
 
 
-// send player input to the game server
+// send user input to the game server
 function sendInput(key) {
-  ws.send(JSON.stringify({ type: "playerInput", data: key }));
+  ws.send(JSON.stringify({ type: "keypress", data: key }));
 };
 
 function handleInput(buttonMap, key) {

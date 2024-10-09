@@ -2,19 +2,43 @@
 /* -------------------------------------------------------------------------- */
 
 
-#server-data {
-  display: block;
+.data-row {
+  /* border: 1px solid red; */
+  background-color: #111111;
+  color: darkslategray;
+  display: flex;
+  padding: .2em;
+  margin-bottom: .2em;
+  margin-left: 1em;
 }
 
-#player-list {
+.data-row:hover {
+  color: deepskyblue;
+}
+
+.data-label,
+.data-value {
+  color: inherit;
+  display: inline-flex;
+  flex-grow: 1;
+  justify-content: left;
+  font-family: 'Courier New', Courier, monospace;
+  /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+  margin: auto;
+  width: 50%;
+}
+
+
+
+#user-list {
   /* border: 3px dotted darkslategray; */
   display: flex;
   flex-direction: column;
   gap: 1em;
 }
 
-.player-info,
-.entity-info {
+.user-info,
+.unit-info {
   border-radius: 1em;
   /* border: 2px solid darkslateblue; */
   display: flex;
@@ -25,21 +49,9 @@
 /* PAGE AREA: PLAYER VIEW */
 /* -------------------------------------------------------------------------- */
 
-.player-label,
-.entity-label {
-  border-bottom: 2px solid #222222;
-  color: darkslategray;
-  margin: auto;
-}
 
-.player-data,
-.entity-data {
-  border-bottom: 2px solid #222222;
-  margin-left: 1em;
-}
-
-.player-view-canvas,
-.entity-view-canvas {
+.user-view-canvas,
+.unit-view-canvas {
   border-radius: 1em;
   border: 2px solid darkslateblue;
   display: flex;
@@ -57,7 +69,7 @@
 /* -------------------------------------------------------------------------- */
 
 
-#entity-view-area {
+#unit-view-area {
   /* border: 1px dotted darkslategray; */
   display: flex;
   flex-direction: row;
@@ -65,70 +77,39 @@
   gap: 1em;
 }
 
-/* PAGE AREA: ENTITY DATA */
-/* -------------------------------------------------------------------------- */
-
-
-#entity-info {
-  /* border: 3px solid darkslateblue; */
-  display: flex;
-  flex-wrap: wrap;
-}
-
-#entity-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1em;
-}
-
-.entity-card {
-  /* border: 3px solid darkslateblue; */
-  border-radius: 1em;
-  display: flex;
-}
-
-.entity-table th {
-  color: deepskyblue;
-  text-transform: uppercase;
-}
-
-.entity-table td {
-  border-bottom: 1px solid #222222;
-  text-align: center;
-}
-
-/* display data on tooltip hover */
-
-.tooltip {
-  display: none;
-  /* Initially hidden */
-  position: absolute;
-  background-color: #222;
-  color: darkcyan;
-  padding: .5em;
-  border-radius: .5em;
-  z-index: 1;
-}
-
-.entity-card:hover .tooltip {
-  display: block;
-}
-
 
 /* BASIC ELEMENTS */
 /* -------------------------------------------------------------------------- */
 
 
+button {
+  background-color: #111111;
+  border: none;
+  color: darkcyan;
+  font: inherit;
+  padding: 1em;
+}
+
+button:hover {
+  color: deepskyblue;
+  cursor: pointer;
+}
+
 canvas {
-  /* border: 3px dotted orange; */
   display: flex;
   padding: 1em;
+}
 
+td {
+  border-bottom: 1px solid #222222;
+  color: darkslategray;
 }
 
 table {
   background: #111111;
   border-radius: 1em;
+  display: flex;
   font-family: 'Courier New', Courier, monospace;
   padding: 1em;
+  table-layout: fixed;
 }

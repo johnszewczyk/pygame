@@ -1,15 +1,56 @@
+'''Module for tile properties'''
+
+
+import copy
+
+
+from datetime import datetime
+
+
+# TILE META
+# ------------------------------------------------------------------------------
+
+
+class TileMeta(type):
+    '''
+    Metaclass for creating Tile subclasses with shared properties.
+    '''
+
+    def __init__(cls, name, bases, attrs):
+        super().__init__(name, bases, attrs)
+        cls.all_calls = 0
+        cls.all_insts = []
+        cls.live_insts = []
+        cls.past_insts = []
+
+    def __call__(cls, *args, **kwargs):
+        '''This method is called when an instance of the class is created.'''
+        instance = super().__call__(*args, **kwargs)
+        cls.all_calls += 1
+        cls.all_insts.append(instance)
+        return instance
+
+    @classmethod
+    def getEachInst(mcs, base_class):  # Use mcs instead of cls
+        '''Function to show subclasses and instances'''
+
+        data = {}  # Use a dictionary instead of a list
+        for cls in base_class.__subclasses__():
+            data[cls.__name__] = cls.all_calls  # Key-value pairs
+        return data
+
 # TILE PROPERTIES
 # ------------------------------------------------------------------------------
 
 
-class Tiles:
-    all_calls = 0
-    all_insts = []
+class Tiles(metaclass=TileMeta):
+    '''Parent class for all tile types'''
 
-    GAMESIZE = None
-    EDGESIZE = None
+    # game_size = None
+    # EDGESIZE = None
 
-    def __init__(self, tile_posi, init_flag) -> None:
+    def __init__(self, tile_index, init_flag) -> None:
+        '''Initialize standard tile properties'''
 
         # Append to all_insts only during initial creation
         if init_flag:
@@ -19,53 +60,80 @@ class Tiles:
         # Tiles.all_insts.append(self)
 
         # args
-        self.tile_posi = tile_posi
+        self.tile_index = tile_index  # permanent index
 
-        # vars
-        self.tile_edge = None
-        self.tile_exit = None
-        self.tile_icon = None
-        self.tile_type = None
-        self.tile_view = None
-        self.tile_view_alt = None
-        self.tile_view_outside = True
-        self.tile_view_inside = True
-        self.tile_last_pass = None
-        self.tile_last_char = None
-        self.tile_last_time = None
-        self.tile_link = None
-        self.tile_lock = None
-        self.tile_name = None
-        self.tile_pass = False
-        self.tile_pass_entity = False
-        self.tile_pass_player = False
-        self.tile_posx = None
-        self.tile_posy = None
-        self.tile_trap = False
-        self.tile_trap_text = None
+        # vars - identity
+        self.tile_edge = None  # edge-type tile
+        self.tile_exit = None  # exit-type tile
+        self.tile_icon = None  # base tile view
+        self.tile_icon_from_interior = None  # alt. tile view
+        self.tile_icon_from_exterior = None  # alt. tile view
+
+        self.tile_roof = False  # roof obscures entities
+        self.tile_objc_list = []  # list of class objects inhabting tile
+
+        # vars - data
+        self.tile_last_used = None  # save last date
+        self.tile_last_user = None  # save last user
+        self.tile_user = None  # save unit on tile
+        self.tile_uses = []  # save uses date
+        self.tile_user_icon = set()  # save unique visitor list of emoji
+        self.tile_user_list = set()  # save unique visitor list of object
+
+        # vars - pass
+        self.tile_link = []  # list of tiles with linked access
+        self.tile_access = False
+        self.tile_access_entity = False
+        self.tile_access_player = False
+
+        self.tile_trap = None  # trap/ loss tile
+        self.tile_trap_text = None  # trap/ loss text
+        self.tile_unique_id = copy.deepcopy(Tiles.all_calls)
+
+        self.tile_wall = None
 
         # setters
+        self.tile_posx = None  # set at init
+        self.tile_posy = None  # set at init
         self.setPosXY()
 
-        print("NEW TILE #", Tiles.all_calls, "@", self.tile_posi)
+    @classmethod
+    def classReset(cls):
+        '''Function to reset subclass class-level vars'''
+        Tiles.all_calls = 0
+        Tiles.all_insts = []
 
-    def setEdge(self):
-        '''Function to determine if tile is on the edge of the map'''
+        for subclass in cls.__subclasses__():
+            subclass.all_calls = 0
+            subclass.all_insts = []
 
-        x = self.tile_posi % Tiles.GAMESIZE
-        y = self.tile_posi // Tiles.GAMESIZE
+    @property
+    def lastUsed(self):
+        '''Function/ Property to calculate time elapsed since last used'''
+        if self.tile_last_used:
+            # Directly subtract datetime objects
+            time_diff = datetime.now() - self.tile_last_used
+            days = time_diff.days
+            hours, remainder = divmod(time_diff.seconds, 3600)
+            minutes, seconds = divmod(remainder, 60)
 
-        is_edge = (x < Tiles.EDGESIZE or x >= (Tiles.GAMESIZE - Tiles.EDGESIZE) or
-                   y < Tiles.EDGESIZE or y >= (Tiles.GAMESIZE - Tiles.EDGESIZE))
+            return f'{days:02d}:{hours:02d}:{minutes:02d}:{seconds:02d} ago'
+        else:
+            return 'Never'
 
-        self.tile_edge = is_edge
-        if self.tile_edge:
-            self.tile_icon = "🌳"
+    @property
+    def uniqUsed(self):
+        '''Function/ Property to calculate length of all users set'''
+        return len(self.tile_user_list)
 
     def setPosXY(self):
         '''Function to make (X,Y) from index position and game size'''
-        self.tile_posx = self.tile_posi % Tiles.GAMESIZE
-        self.tile_posy = self.tile_posi // Tiles.GAMESIZE
+        self.tile_posx = self.tile_index % Tiles.game_size
+        self.tile_posy = self.tile_index // Tiles.game_size
+
+    def setFloorTile(self):
+        '''Function to flag interior tile with no adjacent exterior tiles'''
+        pass
 
 
 # TILE PROPERTIES - SUB CLASSES
@@ -73,135 +141,145 @@ class Tiles:
 
 
 class CabinsTile(Tiles):
-    all_calls = 0
-    all_insts = []
 
-    def __init__(self, tile_posi, init_flag):
-        super().__init__(tile_posi, init_flag)
-        CabinsTile.all_calls += 1
-        CabinsTile.all_insts.append(self)
+    def __init__(self, tile_index, init_flag):
+        super().__init__(tile_index, init_flag)
 
-        self.tile_icon = "🏠"
-        self.tile_name = "cabin"
+        self.tile_icon = '🏠'
+        self.tile_icon_from_exterior = '🏠'
 
-        self.tile_exit = False
-        self.tile_pass = True
-        self.tile_pass_entity = False
-        self.tile_link = ["cabin", "door"]
+        # movement vars
+        self.tile_access = True
+        self.tile_access_entity = False
+        self.tile_link = [CabinsTile, DoorsTile]
+        self.tile_roof = True
 
 
 class DoorsTile(Tiles):
-    all_calls = 0
-    all_insts = []
 
-    def __init__(self, tile_posi, init_flag):
-        super().__init__(tile_posi, init_flag)
-        DoorsTile.all_calls += 1
-        DoorsTile.all_insts.append(self)
+    def __init__(self, tile_index, init_flag):
+        super().__init__(tile_index, init_flag)
 
-        self.tile_icon = "🚪"
-        self.tile_name = "door"
-        self.tile_pass = True
-        self.tile_pass_entity = True
-        self.tile_link = ["cabin", "door"]
+        self.tile_icon = '🚪'
+        self.tile_access = True
+        self.tile_access_entity = True
+        self.tile_link = [CabinsTile, DoorsTile]
+
+
+class EdgesTile(Tiles):
+
+    def __init__(self, tile_index, init_flag):
+        super().__init__(tile_index, init_flag)
+
+        self.tile_icon = '🌳'
+        self.tile_access = False
+        self.tile_edge = True
+
+
+class ExitsTile(Tiles):
+
+    def __init__(self, tile_index, init_flag):
+        super().__init__(tile_index, init_flag)
+
+        self.tile_icon = '🚔'
+        self.tile_access = True
+        self.tile_access_entity = False
 
 
 class FieldsTile(Tiles):
-    all_calls = 0
-    all_insts = []
 
-    def __init__(self, tile_posi, init_flag):
-        super().__init__(tile_posi, init_flag)
-        FieldsTile.all_calls += 1
-        FieldsTile.all_insts.append(self)
+    def __init__(self, tile_index, init_flag):
+        super().__init__(tile_index, init_flag)
+        # FieldsTile.all_calls += 1
+        # FieldsTile.all_insts.append(self)
 
-        self.tile_icon = "🌾"
-        self.tile_name = "field"
-        self.tile_pass = True
+        self.tile_icon = '🌾'
+        self.tile_icon_from_interior = '⬛️'
+        self.tile_is_exterior = True
+        self.tile_is_interior = False
+        self.tile_access = True
 
 
-class FloorsTile(Tiles):
-    all_calls = 0
-    all_insts = []
+class GravesTile(Tiles):
 
-    def __init__(self, tile_posi, init_flag):
-        super().__init__(tile_posi, init_flag)
-        FloorsTile.all_calls += 1
-        FloorsTile.all_insts.append(self)
+    def __init__(self, tile_index, init_flag):
+        super().__init__(tile_index, init_flag)
 
-        self.tile_icon = "⬛️"
-        self.tile_name = "floor"
-        self.tile_pass = True
+        self.tile_icon = '🪦'
+        self.tile_icon_from_interior = '⬛️'
+        self.tile_is_exterior = True
+        self.tile_is_interior = False
+
+
+class LinksTile(Tiles):
+
+    def __init__(self, tile_index, init_flag):
+        super().__init__(tile_index, init_flag)
+
+        self.tile_icon = '🔗'
+        # self.tile_icon_from_interior = '⬛️'
+        self.tile_is_exterior = True
+        self.tile_is_interior = False
 
 
 class RocksTile(Tiles):
-    all_calls = 0
-    all_insts = []
 
-    def __init__(self, tile_posi, init_flag):
-        super().__init__(tile_posi, init_flag)
-        RocksTile.all_calls += 1
-        RocksTile.all_insts.append(self)
+    def __init__(self, tile_index, init_flag):
+        super().__init__(tile_index, init_flag)
 
-        self.tile_icon = "🪨"
-        self.tile_name = "boulder"
+        self.tile_icon = '🪨'
+        self.tile_access = True
+        self.tile_access_entity = True
+        self.tile_access_player = False
+        self.tile_is_exterior = True
+        self.tile_is_interior = False
+        self.tile_roof = True
 
 
 class TreesTile(Tiles):
-    all_calls = 0
-    all_insts = []
 
-    def __init__(self, tile_posi, init_flag):
-        super().__init__(tile_posi, init_flag)
-        TreesTile.all_calls += 1
-        TreesTile.all_insts.append(self)
+    def __init__(self, tile_index, init_flag):
+        super().__init__(tile_index, init_flag)
 
-        self.tile_icon = "🌳"
-        self.tile_name = "trees"
-        self.tile_pass = False
+        self.tile_icon = '🌳'
+        self.tile_icon_from_interior = '⬛️'
+        self.tile_name = 'trees'
+        self.tile_access = False
+        self.tile_access_entity = True
 
 
 class WatersTile(Tiles):
-    all_calls = 0
-    all_insts = []
 
-    def __init__(self, tile_posi, init_flag):
-        super().__init__(tile_posi, init_flag)
-        WatersTile.all_calls += 1
-        WatersTile.all_insts.append(self)
+    def __init__(self, tile_index, init_flag):
+        super().__init__(tile_index, init_flag)
 
-        self.tile_icon = "🌊"
-        self.tile_name = "water"
-        self.tile_pass = True
+        self.tile_icon = '🌊'
+        self.tile_is_exterior = True
+        self.tile_is_interior = False
+        self.tile_access = True
         self.tile_trap = True
-        self.tile_trap_text = "drowned."
+        self.tile_trap_text = 'drowned.'
 
 
 class WoodsTile(Tiles):
-    all_calls = 0
-    all_insts = []
 
-    def __init__(self, tile_posi, init_flag):
-        super().__init__(tile_posi, init_flag)
-        WoodsTile.all_calls += 1
-        WoodsTile.all_insts.append(self)
+    def __init__(self, tile_index, init_flag):
+        super().__init__(tile_index, init_flag)
 
-        self.tile_icon = "🌲"
-        self.tile_name = "woods"
-        self.tile_pass = True
+        self.tile_icon = '🌲'
+        self.tile_icon_from_interior = '⬛️'
+        self.tile_is_exterior = True
+        self.tile_is_interior = False
+        self.tile_access = True
 
 
-class WreckedTile(Tiles):
-    all_calls = 0
-    all_insts = []
+class WrecksTile(Tiles):
 
-    def __init__(self, tile_posi, init_flag):
-        super().__init__(tile_posi, init_flag)
-        WoodsTile.all_calls += 1
-        WoodsTile.all_insts.append(self)
+    def __init__(self, tile_index, init_flag):
+        super().__init__(tile_index, init_flag)
 
-        self.tile_icon = "🏚️"
-        self.tile_name = "wrecked"
-        self.tile_pass = True
+        self.tile_icon = '🏚️'
+        self.tile_access = True
+        self.tile_roof = True
         self.tile_trap = True
-        self.tile_trap_text = "fell."
+        self.tile_trap_text = 'fell.'

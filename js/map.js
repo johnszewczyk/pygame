@@ -6,8 +6,8 @@ const ws = hostData.getAdminWebSocket();
 
 // TRACK LATENCY
 // -----------------------------------------------------------------------------
+let update_start_time = null;
 
-let updateStartTime = null;
 
 
 // CANVAS ELEMENT
@@ -28,17 +28,38 @@ let cell_size = Math.min(canvas.width, canvas.height) / grid_size;
 // -----------------------------------------------------------------------------
 
 ws.onmessage = function (event) {
+
+
+
   const message = JSON.parse(event.data);
 
   if (message.type === "framebuffer") {
     // Record the start time
-    updateStartTime = performance.now();
+    update_start_time = performance.now();
 
     // process data
     renderGame(message.data);
+
+    // calc & show latency
+    CalcLatency(update_start_time);
   }
 
+
+
 };
+
+
+// FUNCTION: LATENCY DISPLAY
+// -----------------------------------------------------------------------------
+
+function CalcLatency(update_start_time) {
+  const update_end_time = performance.now();
+  const latency = update_end_time - update_start_time;
+  const latencyDisplay = document.getElementById('latency-display');
+  if (latencyDisplay) {
+    latencyDisplay.textContent = `Latency: ${latency.toFixed(2)} ms`;
+  }
+}
 
 
 // FUNCTIONS - RENDER DATA
@@ -63,13 +84,7 @@ function renderGame(gameBoard) {
     ctx.fillText(gameBoard[i], x, y); // Draw the character
 
 
-    // After the update is complete, calculate and display latency
-    const updateEndTime = performance.now();
-    const latency = updateEndTime - updateStartTime;
-    const latencyDisplay = document.getElementById('latency-display');
-    if (latencyDisplay) {
-      latencyDisplay.textContent = `Latency: ${latency.toFixed(2)} ms`;
-    }
+
 
 
   }
